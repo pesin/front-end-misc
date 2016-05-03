@@ -1,4 +1,4 @@
-﻿/// <reference path="react/react-with-addons-0.13.1.js" />
+﻿/// <reference path="react-with-addons-0.13.1.js" />
 /// <reference path="react/JSXTransformer-0.13.1.js" />
 
 var data =
@@ -9,15 +9,15 @@ var data =
 
 var GameCell = React.createClass({
 
- handleCellClick : function(){
+/* handleCellClick : function(){
     this.props.handleClick(this.props.cell, this.props.rowNum, this.props.cellNum);
     },
-
+*/
 
 render: function (){
     var cell = this.props.cell;
     var strValue = cell.toString();
-    var h=this.props.handleClick;
+   // var h=this.props.handleClick;
     
     if (cell==0){
         strValue = "";
@@ -25,15 +25,17 @@ render: function (){
     }
 
     
-    var cx = React.addons.classSet;
-    var classes = cx({
+ //   var cx = React.addons.classSet;
+    var classes = classNames({
     'gameCell': true,
     'blankcell': (cell==0),
     
   });
+  //onClick={this.handleCellClick}
 
+  //lassName={classes}
    return (
-   <div className={classes} onClick={this.handleCellClick} >{strValue}</div>
+   <div  className={classes}>{strValue}</div>
    );
 }
 });
@@ -48,14 +50,22 @@ var GameRow = React.createClass({
         var i=0;
         var p = this.props;
        var rowNum = this.props.rowNum;
-
+       this.props.row.forEach(function(cell) {
+            cells.push(<GameCell rowNum={rowNum} cellNum={i} cell={cell} key={i}  />);
+            i++;
+       });
+/*
         this.props.row.forEach(function(cell) {
-          
-            cells.push(<GameCell rowNum={rowNum} cellNum={i} cell={cell} key={i} handleClick={p.userInput} />);
+          //handleClick={p.userInput}
+            cells.push(<GameCell rowNum={rowNum} cellNum={i} cell={cell} key={i}  />);
             i++;
         });
+        
+        {row}
+        */
         return (
             <div className="gameRow">
+            
                 {cells}
             </div>
         );
@@ -63,7 +73,7 @@ var GameRow = React.createClass({
 });
 
 var GameTable = React.createClass({
-    
+/*    
     handleClick : function(cell, rowNum, cellNum){
         alert(rowNum+","+cellNum);
         //calculate if the cell can be moved
@@ -73,7 +83,7 @@ var GameTable = React.createClass({
         //change state
         //2DO: perhaps the new state should be in this.state?
     },
-
+    */
     getInitialState: function() {
         return {
             gameState: [
@@ -85,10 +95,15 @@ var GameTable = React.createClass({
         var rows = [];
         
         var i=0;
-        var tt = this.handleClick;
+
+
+
+      //  var tt = this.handleClick;
         this.props.data.forEach(function(r) {
           
-            rows.push(<GameRow row={r} key={i} userInput={tt} t="1" rowNum={i}/>);
+            rows.push(<GameRow row={r} key={i} t="1" rowNum={i}/>);
+            //rows.push(<div key={i} >{r}</div>);
+             //rows.push(<GameRow row={r} key={i} userInput={tt} t="1" rowNum={i}/>);
           i++;  
         });
         return (
@@ -101,4 +116,4 @@ var GameTable = React.createClass({
 
 
 
-React.render(<GameTable data={data} />, document.getElementById("container"));
+ReactDOM.render(<GameTable data={data} />, document.getElementById("container"));
