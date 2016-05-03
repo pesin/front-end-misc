@@ -80,6 +80,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\classnames.js" />
     <Content Include="scripts\fifteen.js" />
     <Content Include="scripts\jquery-2.2.3-vsdoc.js" />
     <Content Include="scripts\jquery-2.2.3.js" />

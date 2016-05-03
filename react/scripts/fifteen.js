@@ -9,15 +9,15 @@ var data =
 
 var GameCell = React.createClass({
 
-/* handleCellClick : function(){
+ handleCellClick : function(){
     this.props.handleClick(this.props.cell, this.props.rowNum, this.props.cellNum);
     },
-*/
+
 
 render: function (){
     var cell = this.props.cell;
     var strValue = cell.toString();
-   // var h=this.props.handleClick;
+    var h=this.props.handleClick;
     
     if (cell==0){
         strValue = "";
@@ -35,7 +35,7 @@ render: function (){
 
   //lassName={classes}
    return (
-   <div  className={classes}>{strValue}</div>
+   <div  className={classes} onClick={this.handleCellClick}>{strValue}</div>
    );
 }
 });
@@ -51,7 +51,7 @@ var GameRow = React.createClass({
         var p = this.props;
        var rowNum = this.props.rowNum;
        this.props.row.forEach(function(cell) {
-            cells.push(<GameCell rowNum={rowNum} cellNum={i} cell={cell} key={i}  />);
+            cells.push(<GameCell rowNum={rowNum} cellNum={i} cell={cell} key={i} handleClick={p.userInput} />);
             i++;
        });
 /*
@@ -73,21 +73,20 @@ var GameRow = React.createClass({
 });
 
 var GameTable = React.createClass({
-/*    
+ 
     handleClick : function(cell, rowNum, cellNum){
-        alert(rowNum+","+cellNum);
+        alert(rowNum+","+cellNum+":"+this.state.gameState[rowNum][cellNum]);
         //calculate if the cell can be moved
-
+        
         //move the cell
 
         //change state
         //2DO: perhaps the new state should be in this.state?
     },
-    */
+    
     getInitialState: function() {
         return {
-            gameState: [
-            ]
+            gameState: this.props.data
         };
     },
 
@@ -96,12 +95,12 @@ var GameTable = React.createClass({
         
         var i=0;
 
+        
 
-
-      //  var tt = this.handleClick;
+        var tt = this.handleClick;
         this.props.data.forEach(function(r) {
           
-            rows.push(<GameRow row={r} key={i} t="1" rowNum={i}/>);
+            rows.push(<GameRow row={r} key={i} t="1" userInput={tt}  rowNum={i}/>);
             //rows.push(<div key={i} >{r}</div>);
              //rows.push(<GameRow row={r} key={i} userInput={tt} t="1" rowNum={i}/>);
           i++;  
